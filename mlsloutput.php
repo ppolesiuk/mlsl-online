@@ -7,6 +7,12 @@
  <SCRIPT src="highlight.pack.js"></SCRIPT>
   <?php
 
+$mlsl_targets = array(
+		"agal" => true,
+		"agalAsm" => true,
+		"dummy" => true
+	);
+
 function tempdir($dir, $prefix) {
 	$tempfile = tempnam($dir, $prefix);
 	if (file_exists($tempfile))
@@ -19,6 +25,11 @@ function tempdir($dir, $prefix) {
 function js_quote($str) {
 	return str_replace("\n", "\\n", str_replace("\r", "\\r", "\"" . addslashes($str) . "\""));
 }
+
+if ($mlsl_targets[$_POST["target"]])
+	$mlsl_target = $_POST["target"];
+else
+	exit("Nope!");
 
 $mlsl_source = $_POST["mlslSource"];
 $casedir = tempdir("/tmp/", "mlsl_run_");
